@@ -1,9 +1,9 @@
-pragma solidity ^0.8.10;
+pragma solidity ^0.5.16;
 
 contract Donation {
-    uint public num = 2;
+    function donate() external payable {}
 
-    function get() public view returns(uint) {
-        return num;
+    function balanceOf() external view returns(uint) {
+        return address(this).balance;
     }
 }

@@ -14,22 +14,24 @@ const donationContract = new web3.eth.Contract(Donation, contractAddress)
 
 function App() {
   const [storedValue,account] = useState(0,null)
-
-  const inpValue = React.createRef()
   useEffect( async () => {
     const accounts = await window.ethereum.enable()
     const account = accounts[0]
     console.log(account)
   })
 
-  const createTransaction = (e) => {
-    web3.eth.sendTransaction({
-      from: account,
-      to: donationContract,
-      value: web3.utils.toWei('1', 'ether'),
+  const createTransaction =  () => {
+    const amount = "0.0005"; 
+    const amountToSend = web3.utils.toWei(amount, "ether");
+    donationContract.methods.donate().send({ from: "0xDBe17e07A3203F2edbB4Fe4067AAc1a5FD5Ee591",value: amountToSend }).then(tx => {
+      console.log(tx)
     })
   }
 
+  const getBalance = async () => {
+    let balance = await web3.eth.getBalance(donationContract.options.address)
+    console.log(balance)
+  }
 
   return (
     <div className="App">
@@ -42,6 +44,7 @@ function App() {
       </ul>
 
       <button onClick={createTransaction}>donate</button>
+      <button onClick={getBalance}>balance</button>
     </div>
   );
 }

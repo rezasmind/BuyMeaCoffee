@@ -29,6 +29,8 @@ ul li button {
   flex-direction: column;;
   width: 150px;
   height: 150px;
+  cursor: pointer;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
